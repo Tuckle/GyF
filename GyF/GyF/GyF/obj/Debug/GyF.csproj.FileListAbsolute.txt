@@ -1,0 +1,9 @@
+C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\bin\Debug\GyF.exe.config
+C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\bin\Debug\GyF.exe
+C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\bin\Debug\GyF.pdb
+C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.csprojResolveAssemblyReference.cache
+C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.Form1.resources
+C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.Properties.Resources.resources
+C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.csproj.GenerateResource.Cache
+C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.exe
+C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.pdb
