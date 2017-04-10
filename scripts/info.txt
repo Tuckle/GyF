@@ -1,1 +1,0 @@
-Folder contains the script which creates and manages the database

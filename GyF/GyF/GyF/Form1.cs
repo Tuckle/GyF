@@ -45,6 +45,7 @@ namespace GyF
         private OleDbConnection connection;
         private OleDbCommand command;
         private OleDbDataReader dataReader;
+
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -84,7 +85,7 @@ namespace GyF
                 {
                     connection.Open();
                     MessageBox.Show("Connection with the database has been made!", "Succesfull connection!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    command = new OleDbCommand("Select count(*) from users_ where email='" + email + "' and password='" + password + "'", connection);
+                    command = new OleDbCommand("SELECT COUNT(*) FROM users_ WHERE email='" + email + "' AND password='" + password + "'", connection);
                     dataReader = command.ExecuteReader();
                     dataReader.Read();
                     int value = int.Parse(dataReader.GetValue(0).ToString());
@@ -93,9 +94,8 @@ namespace GyF
                     {
                         MessageBox.Show("Succesfull login!", "GyF Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Main formMain = new Main(email);
+                        /* Show main form and hide login form */
                         formMain.Show();
-
-
                     }
                     else
                     {

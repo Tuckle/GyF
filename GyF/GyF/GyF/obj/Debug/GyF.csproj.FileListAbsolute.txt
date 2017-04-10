@@ -8,3 +8,13 @@ C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.csproj.GenerateResour
 C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.exe
 C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.pdb
 C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.Main.resources
+C:\Users\apiriu\Documents\Faculty\SGBD\Project\GyF\GyF\GyF\GyF\bin\Debug\GyF.exe.config
+C:\Users\apiriu\Documents\Faculty\SGBD\Project\GyF\GyF\GyF\GyF\bin\Debug\GyF.exe
+C:\Users\apiriu\Documents\Faculty\SGBD\Project\GyF\GyF\GyF\GyF\bin\Debug\GyF.pdb
+C:\Users\apiriu\Documents\Faculty\SGBD\Project\GyF\GyF\GyF\GyF\obj\Debug\GyF.csprojResolveAssemblyReference.cache
+C:\Users\apiriu\Documents\Faculty\SGBD\Project\GyF\GyF\GyF\GyF\obj\Debug\GyF.Form1.resources
+C:\Users\apiriu\Documents\Faculty\SGBD\Project\GyF\GyF\GyF\GyF\obj\Debug\GyF.Main.resources
+C:\Users\apiriu\Documents\Faculty\SGBD\Project\GyF\GyF\GyF\GyF\obj\Debug\GyF.Properties.Resources.resources
+C:\Users\apiriu\Documents\Faculty\SGBD\Project\GyF\GyF\GyF\GyF\obj\Debug\GyF.csproj.GenerateResource.Cache
+C:\Users\apiriu\Documents\Faculty\SGBD\Project\GyF\GyF\GyF\GyF\obj\Debug\GyF.exe
+C:\Users\apiriu\Documents\Faculty\SGBD\Project\GyF\GyF\GyF\GyF\obj\Debug\GyF.pdb

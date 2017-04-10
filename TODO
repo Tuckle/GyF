@@ -1,0 +1,20 @@
+Realizarea conexiunii dintr-o aplicatie stand-alone (Java/PHP etc). -- DONE
+Realizarea macar a unei functii/membru_proiect care sa faca calcule pe partea de server SGBD si sa demonstreze functionarea ei din UI (si aici nu ma refer la functii triviale care cauta ceva in baza de date: sa se vada necesitatea ei pe partea de server SGBD si ca nu ar merge la fel de bine daca ar fi implementata direct in aplicatie).
+- 
+Propagarea erorilor din SGBD si afisarea lor intr-un mod corespunzator in aplicatie (vom testa si cu valori aiuristice).
+- cand se inregistreaza un user/o companie care exista deja in baza de date si tipa triggerele
+Afisarea (in aplicatie) paginata a unuia dintre tabelele cu foarte multe date cu posibilitatea de filtrare a datelor.
+- afisarea resurselor si serviciilor unei companii cu posibilitatea de a le filtra(2 tabele)
+Implementarea operatiilor Create/Read/Update/Delete (CRUD) din interfata aplicatiei pe macar una din tabele.
+- adaugarea de resurse/servicii la o companie, posibilitatea de a sterge sau modifica
+Demonstrarea unui caz in care se poate utiliza SQL injection si al unuia in care nu se poate face acest lucru (in cadrul aplicatiei).
+- care se poate: vom exemplifica la register, care nu se poate la login
+Realizarea de pachete specifice pentru lucru cu anumite entitati (de exemplu puteti sa aveti un pachet user care sa permita inregistrarea / autentificarea / oferirea datelor sau editarea lor pentru un user - am vazut ca multi aveti useri ce se autentifica in sistem si mai puteti avea un pachet care sa interactioneze cu produsele pe care le vindeti sau cu alte concepte din aplicatie).
+- un packet de login/register ce contine functii: login(email, password) si returneaza un bool daca logarea a reusit, register(date...); diminuam vizibilitatea structurilor tabelelor din baza de date;
+
+TODO:
+- register form added
+- company list added to Main form with option to view/edit company details
+- packets in database for login/register
+- vizualizare tabele resurse/servicii ale unei companii
+- tratarea erorilor din SGBD si afisarea lor in aplicatie(failed connection, tabel does not exist, no permissions, row/tuples already existing, row could not be deleted, etc..)
