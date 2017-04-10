@@ -92,6 +92,10 @@ namespace GyF
                     if (value != 0)
                     {
                         MessageBox.Show("Succesfull login!", "GyF Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Main formMain = new Main(email);
+                        formMain.Show();
+
+
                     }
                     else
                     {

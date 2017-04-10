@@ -7,3 +7,4 @@ C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.Properties.Resources.
 C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.csproj.GenerateResource.Cache
 C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.exe
 C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.pdb
+C:\Faculty\sgbd\Project\VisualStudio\GyF\GyF\obj\Debug\GyF.Main.resources

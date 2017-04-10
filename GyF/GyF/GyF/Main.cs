@@ -12,9 +12,10 @@ namespace GyF
 {
     public partial class Main : Form
     {
-        public Main()
+        public Main(String username)
         {
             InitializeComponent();
+            label1.Text = "Welcome, " + username;
         }
 
         private void Main_Load(object sender, EventArgs e)
