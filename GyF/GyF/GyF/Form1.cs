@@ -60,10 +60,11 @@ namespace GyF
             }
 
             Regex passwordValidator = new Regex("^[A-Za-z0-9.@!#$%]");
-            if (!passwordValidator.IsMatch(password))
-            {
-                passwordOk = false;
-            }
+
+            //if (!passwordValidator.IsMatch(password))
+            //{
+            //    passwordOk = false;
+            //}
 
             if (emailOk == false && passwordOk == false)
             {
@@ -95,7 +96,9 @@ namespace GyF
                         MessageBox.Show("Succesfull login!", "GyF Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Main formMain = new Main(email);
                         /* Show main form and hide login form */
-                        formMain.Show();
+                        this.Hide();
+                        formMain.ShowDialog();
+                        this.Close();
                     }
                     else
                     {
@@ -108,6 +111,14 @@ namespace GyF
                 }
             }
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Register registerForm = new Register();
+            this.Hide();
+            registerForm.ShowDialog();
+            this.Show();
         }
     }
 }
