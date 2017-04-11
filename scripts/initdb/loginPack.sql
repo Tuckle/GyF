@@ -1,12 +1,17 @@
 set serveroutput on;
 
-create or replace package user_manager ass
+create or replace package user_manager as
+  user_not_found exception;
+  email_exists exception;
+  pragma exception_init(user_not_found, -21354);
+  pragma exception_init(email_exists, -21355);
+  
   function emailExists(email varchar) return integer;
   function addUser(firstName varchar, lastName varchar,
-  email varchar, cellphone varchar, passwd varchar) return integer;
+  email varchar, cellphone varchar, passwd varchar) return varchar;
   function updateUser(user_id number, first_name varchar, last_name varchar,
-  email varchar, phone_nr varchar, passwd varchar) return integer;
-  function removeUser(user_id number) return integer;
+  email varchar, phone_nr varchar, passwd varchar) return varchar;
+  function removeUser(user_id number) return varchar;
   function login(email varchar, passwd varchar) return integer;
   function getUserId(email varchar) return number;
 end user_manager;
@@ -26,6 +31,9 @@ create or replace package body user_manager as
     user_id number(10, 0) := 0;
     cnt integer;
   begin
+    if length(email) = 0 then
+      return 0;
+    end if;
     select nvl(count(*), 0) into cnt from users_ where users_.email = email;
     if(cnt = 0) then
       return 0;
@@ -35,33 +43,40 @@ create or replace package body user_manager as
   end;
   
   function addUser(firstName varchar, lastName varchar,
-  email varchar, cellphone varchar, passwd varchar) return integer as 
+  email varchar, cellphone varchar, passwd varchar) return varchar as 
+    ret_msg varchar(255);
     v_temp integer;
   begin
     v_temp := emailExists(email);
-    if(v_temp = 0) then
-      return 0;
+    if(v_temp >= 1) then
+      raise user_manager.email_exists;
     end if;
     
     INSERT into users_ (users_.firstName, USERS_.LASTNAME, users_.email,
     USERS_.CELLPHONE, USERS_.PASSWORD) values (firstname, lastname,
     email, cellphone, passwd);
-    return 1;
+    ret_msg := 'OK';
+    return ret_msg;
 --  Exception 
+  exception
+  when user_manager.email_exists then
+    ret_msg := 'Email already exists';
+    return ret_msg;
   end;
   
   function updateUser(user_id number, first_name varchar, last_name varchar,
-  email varchar, phone_nr varchar, passwd varchar) return integer Is 
+  email varchar, phone_nr varchar, passwd varchar) return varchar Is 
+  ret_msg varchar(255);
     cnt integer;
   begin
     select nvl(count(*), 0) into cnt from users_ where user_id=users_.userid;
     if(cnt = 0) then
-      return 0;
+      raise user_manager.user_not_found;
     end if;
     
     cnt := user_manager.emailExists(email);
     if(cnt >= 1) then
-      return -1;
+      raise user_manager.email_exists;
     end if;
     
     update users_ set
@@ -72,18 +87,32 @@ create or replace package body user_manager as
     users_.password = passwd
     where users_.userid=user_id;
     
-    return 1;
+    ret_msg := 'OK';
+    return ret_msg;
+  exception 
+    when user_manager.user_not_found then
+      ret_msg := 'User not found';    
+    return ret_msg;
+    when user_manager.email_exists then
+      ret_msg := 'Email already exists';
+    return ret_msg;
   end;
   
-  function removeUser(user_id number) return integer as 
+  function removeUser(user_id number) return varchar as 
+    ret_msg varchar(255);
     cnt integer;
   begin
     select nvl(count(*), 0) into cnt from users_ where user_id=users_.userid;
     if(cnt < 1) then
-      return 0;
+      raise user_manager.user_not_found;
     end if;
     delete from users_ where users_.userid=user_id;
-    return 1;
+    ret_msg := 'OK';
+    return ret_msg;
+  exception
+  when user_manager.user_not_found then
+    ret_msg := 'User not found';
+    return ret_msg;
   end;
   
   function login(email varchar, passwd varchar) return integer is
