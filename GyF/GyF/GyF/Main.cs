@@ -20,7 +20,7 @@ namespace GyF
         private string cellphone;
         private OleDbConnection conn;
 
-        public Main(String username)
+        public Main(String email)
         {
             InitializeComponent();
 
@@ -40,18 +40,50 @@ namespace GyF
             cellphone = dataReader.GetValue(4).ToString();
             conn.Close();
 
-            label1.Text = "Welcome, " + username;
+            label1.Text = "Welcome, " + firstName + " " + lastName;
+
+            conn.Open();
+            OleDbDataAdapter adapter = new OleDbDataAdapter("Select c.companyid as \"Id\", c.name as \"Name\", c.website as \"Website\", c.location  as \"Location\" from companies c join owners o on c.companyId = o.companyId join users_  u on u.userId = o.userId where u.email='" + email + "'", conn);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            dataGridView1.DataSource = dt;
+            conn.Close();
+
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
             /* connect to database and retrieve list of user companies */
             //CTRL+K+C to comment and CTRL+K+U to uncomment lines of code
-            //conn.Open();
-            //OleDbCommand command = new OleDbCommand("SELECT * FROM companies WHERE email='" + email + "'", conn);
-            //OleDbDataReader dataReader = command.ExecuteReader();
             
-            //conn.Close();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int selectedRowCount = dataGridView1.Rows.GetRowCount(DataGridViewElementStates.Selected);
+            if (selectedRowCount != 1)
+            {
+                MessageBox.Show("Only one row must pe selected!", "Error selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                DataGridViewRow row = dataGridView1.SelectedRows[0];
+                int id = int.Parse(Convert.ToString(row.Cells["Id"].Value));
+                Details details = new Details(id);
+                this.Hide();
+                details.ShowDialog();
+                this.Show();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

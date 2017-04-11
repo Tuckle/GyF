@@ -18,3 +18,17 @@ C:\Users\apiriu\Documents\Faculty\SGBD\Project\GyF\GyF\GyF\GyF\obj\Debug\GyF.Pro
 C:\Users\apiriu\Documents\Faculty\SGBD\Project\GyF\GyF\GyF\GyF\obj\Debug\GyF.csproj.GenerateResource.Cache
 C:\Users\apiriu\Documents\Faculty\SGBD\Project\GyF\GyF\GyF\GyF\obj\Debug\GyF.exe
 C:\Users\apiriu\Documents\Faculty\SGBD\Project\GyF\GyF\GyF\GyF\obj\Debug\GyF.pdb
+C:\Faculty\sgbd\Project\GitHub\GyF\GyF\GyF\GyF\bin\Debug\GyF.exe.config
+C:\Faculty\sgbd\Project\GitHub\GyF\GyF\GyF\GyF\obj\Debug\GyF.exe
+C:\Faculty\sgbd\Project\GitHub\GyF\GyF\GyF\GyF\obj\Debug\GyF.pdb
+C:\Faculty\sgbd\Project\GitHub\GyF\GyF\GyF\GyF\bin\Debug\GyF.exe
+C:\Faculty\sgbd\Project\GitHub\GyF\GyF\GyF\GyF\bin\Debug\GyF.pdb
+C:\Faculty\sgbd\Project\GitHub\GyF\GyF\GyF\GyF\obj\Debug\GyF.csprojResolveAssemblyReference.cache
+C:\Faculty\sgbd\Project\GitHub\GyF\GyF\GyF\GyF\obj\Debug\GyF.Form1.resources
+C:\Faculty\sgbd\Project\GitHub\GyF\GyF\GyF\GyF\obj\Debug\GyF.Main.resources
+C:\Faculty\sgbd\Project\GitHub\GyF\GyF\GyF\GyF\obj\Debug\GyF.Properties.Resources.resources
+C:\Faculty\sgbd\Project\GitHub\GyF\GyF\GyF\GyF\obj\Debug\GyF.csproj.GenerateResource.Cache
+C:\Faculty\sgbd\Project\GitHub\GyF\GyF\GyF\GyF\obj\Debug\GyF.Register.resources
+C:\Faculty\sgbd\Project\GitHub\GyF\GyF\GyF\GyF\obj\Debug\GyF.Details.resources
+C:\Faculty\sgbd\Project\GitHub\GyF\GyF\GyF\GyF\obj\Debug\GyF.ResourceModify.resources
+C:\Faculty\sgbd\Project\GitHub\GyF\GyF\GyF\GyF\obj\Debug\GyF.ServiceModify.resources
