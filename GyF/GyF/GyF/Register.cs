@@ -66,9 +66,33 @@ namespace GyF
             }
             else
             {
+
                 conn.Open();
-                OleDbCommand command = new OleDbCommand("INSERT INTO users_ (firstname, lastname, email, cellphone, password) VALUES('" + firstName + "','" + lastName + "','" + email +"','" + cellphone + "','" + password + "')", conn);
-                command.ExecuteNonQuery();
+                try
+                {
+                    //OleDbCommand command = new OleDbCommand("INSERT INTO users_ (firstname, lastname, email, cellphone, password) VALUES('" + firstName + "','" + lastName + "','" + email +"','" + cellphone + "','" + password + "')", conn);
+                    //OleDbCommand command = new OleDbCommand("select user_manager.addUser('" + firstName + "','" + lastName + "','" + email + "','" + cellphone + "','" + password + "') from dual", conn);
+                    OleDbCommand command = new OleDbCommand("user_manager.addUser", conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("firstName", OleDbType.VarChar).Value = firstName;
+                    command.Parameters.Add("lasttName", OleDbType.VarChar).Value = lastName;
+                    command.Parameters.Add("email", OleDbType.VarChar).Value = email;
+                    command.Parameters.Add("cellphone", OleDbType.VarChar).Value = cellphone;
+                    command.Parameters.Add("passwd", OleDbType.VarChar).Value = password;
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("User has been created!");
+                    this.Close();
+                    
+                }
+                catch(OleDbException exception)
+                {
+                    string result = "";
+                    for (int i = 0; i < exception.Errors.Count; i++)
+                    {
+                        result += "Index #" + i + "\n" + "Message: " + exception.Errors[i].Message + "\n";
+                    }
+                    MessageBox.Show("Error!\n" + result);
+                }
                 conn.Close();
             }
         }

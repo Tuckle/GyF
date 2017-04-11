@@ -3,12 +3,12 @@ set serveroutput on;
 create or replace package user_manager as
   user_not_found exception;
   email_exists exception;
-  pragma exception_init(user_not_found, -21354);
-  pragma exception_init(email_exists, -21355);
+  pragma exception_init(user_not_found, -20002);
+  pragma exception_init(email_exists, -20001);
   
-  function emailExists(email varchar) return integer;
-  function addUser(firstName varchar, lastName varchar,
-  email varchar, cellphone varchar, passwd varchar) return varchar;
+  function emailExists(email_ varchar2) return integer;
+  procedure addUser(firstName varchar, lastName varchar,
+  email varchar, cellphone varchar, passwd varchar);
   function updateUser(user_id number, first_name varchar, last_name varchar,
   email varchar, phone_nr varchar, passwd varchar) return varchar;
   function removeUser(user_id number) return varchar;
@@ -17,10 +17,11 @@ create or replace package user_manager as
 end user_manager;
 /
 create or replace package body user_manager as
-  function emailExists(email varchar) return integer as
+  function emailExists(email_ varchar2) return integer as
     cnt integer := 0;
   begin
-    select nvl(count(*), 0) into cnt from users_ where users_.email=email;
+    cnt := 0;
+    select count(*) into cnt from users_ u where u.email=email_;
     if (cnt >= 1) then
       cnt := 1;
     end if;
@@ -42,26 +43,29 @@ create or replace package body user_manager as
     return user_id;
   end;
   
-  function addUser(firstName varchar, lastName varchar,
-  email varchar, cellphone varchar, passwd varchar) return varchar as 
+  procedure addUser(firstName varchar, lastName varchar,
+  email varchar, cellphone varchar, passwd varchar) as
+  email_exists exception;
+  pragma exception_init(email_exists, -20001);
     ret_msg varchar(255);
     v_temp integer;
   begin
     v_temp := emailExists(email);
     if(v_temp >= 1) then
-      raise user_manager.email_exists;
+--      raise user_manager.email_exists;
+        raise_application_error(-20001, 'Email already exists');
     end if;
     
     INSERT into users_ (users_.firstName, USERS_.LASTNAME, users_.email,
     USERS_.CELLPHONE, USERS_.PASSWORD) values (firstname, lastname,
     email, cellphone, passwd);
     ret_msg := 'OK';
-    return ret_msg;
+--    return ret_msg;
 --  Exception 
-  exception
-  when user_manager.email_exists then
-    ret_msg := 'Email already exists';
-    return ret_msg;
+--  exception
+--  when user_manager.email_exists then
+--    ret_msg := 'Email already exists';
+--    return ret_msg;
   end;
   
   function updateUser(user_id number, first_name varchar, last_name varchar,
@@ -126,3 +130,7 @@ create or replace package body user_manager as
   end;
 end user_manager;
 /
+
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('AA' || user_manager.emailExists('gheorghe.balan@yahoo.com'));
+END;

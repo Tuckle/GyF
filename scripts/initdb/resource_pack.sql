@@ -1,5 +1,3 @@
-set serveroutput on;
-
 create or replace package resourcePack is
   type resIdType is table of number index by pls_integer;
   
@@ -9,10 +7,8 @@ create or replace package resourcePack is
   pragma exception_init(rid_not_found, -21357);
 
   function updateResource(resId number, rname varchar, description varchar, cost number) return varchar;
-  function recommendResources(company_id number) return resIdType;
 end resourcePack;
 /
-
 create or replace package body resourcePack is
   function updateResource(resId number, rname varchar, description varchar, cost number) return varchar as
     ret_msg varchar(255);
@@ -38,18 +34,6 @@ create or replace package body resourcePack is
   when no_data_found then
     ret_msg := 'No data found';
     return ret_msg;
-  end;
-
-  function recommendResources(company_id number) return resIdType is
-    resIdType id_list;
-  begin
-    
-    
-    return id_list;
-  
-  exception
-  when no_data_found then
-    return null;
   end;
 
 end resourcePack;

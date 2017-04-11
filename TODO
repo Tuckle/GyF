@@ -13,8 +13,8 @@ Realizarea de pachete specifice pentru lucru cu anumite entitati (de exemplu put
 - un packet de login/register ce contine functii: login(email, password) si returneaza un bool daca logarea a reusit, register(date...); diminuam vizibilitatea structurilor tabelelor din baza de date;
 
 TODO:
-- register form added
-- company list added to Main form with option to view/edit company details
-- packets in database for login/register
-- vizualizare tabele resurse/servicii ale unei companii
+- register form added - DONE
+- company list added to Main form with option to view/edit company details 
+- packets in database for login/register - DONE
+- vizualizare tabele resurse/servicii ale unei companii - DONE
 - tratarea erorilor din SGBD si afisarea lor in aplicatie(failed connection, tabel does not exist, no permissions, row/tuples already existing, row could not be deleted, etc..)

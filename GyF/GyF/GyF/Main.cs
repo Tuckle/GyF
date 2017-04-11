@@ -85,5 +85,22 @@ namespace GyF
         {
             this.Close();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            conn.Open();
+            OleDbCommand command = new OleDbCommand("getUserRanking", conn);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("user_id", OleDbType.Numeric).Value = userId;
+            command.Parameters.Add("rank_", OleDbType.Numeric).Direction = ParameterDirection.ReturnValue;
+            command.Parameters.Add("rank_nr", OleDbType.Numeric).Direction = ParameterDirection.ReturnValue;
+            command.Parameters.Add("total", OleDbType.Numeric).Direction = ParameterDirection.ReturnValue;
+            command.ExecuteNonQuery();
+            string result = "";
+            result = "Your rank is: " + command.Parameters["rank_"].Value.ToString() + ".\n";
+            result += "You are: " + command.Parameters["rank_nr"].Value.ToString() + " out of " + command.Parameters["total"].Value.ToString();
+            MessageBox.Show(result);
+            conn.Close();
+        }
     }
 }

@@ -20,18 +20,22 @@ namespace GyF
         {
             InitializeComponent();
 
+            int pageNumber = 1;
+            
+
             this.companyId = companyId;
             string connectionString = "Provider=OraOLEDB.Oracle;DATA SOURCE=localhost:1521/XE;PERSIST SECURITY INFO=True;USER ID=STUDENT;Password=STUDENT;";
             conn = new OleDbConnection(connectionString);
             conn.Open();
-            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from services where companyid = " + companyId, conn);
+            //OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from services where companyid = " + companyId, conn);
             DataTable dt = new DataTable();
+            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resources where companyid = " + companyId + ") a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
             adapter.Fill(dt);
             dataGridView1.DataSource = dt;
             conn.Close();
 
             conn.Open();
-            adapter = new OleDbDataAdapter("Select * from resources where companyid = " + companyId, conn);
+            adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from services where companyid = " + companyId + ") a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
             dt = new DataTable();
             adapter.Fill(dt);
             dataGridView2.DataSource = dt;
@@ -106,11 +110,15 @@ namespace GyF
                 try
                 {
                     conn.Open();
-                    OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from resources where companyid = " + companyId + " and (" + filterQuery + ")", conn);
+                    int pageNumber = int.Parse(textBox3.Text);
+                    if (pageNumber < 1)
+                        pageNumber = 1;
+                    OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resources where companyid = " + companyId + " and (" + filterQuery + ")) a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     dataGridView2.DataSource = dt;
                     conn.Close();
+                    this.Show();
                 }
                 catch(Exception exp)
                 {
@@ -247,13 +255,56 @@ namespace GyF
                 rm.ShowDialog();
                 // refresh gridview table
                 conn.Open();
-                OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from resources where companyid = " + companyId, conn);
+                int pageNumber = 1;
+                OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resources where companyid = " + companyId + ") a where rownum < ("+ pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")" , conn);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
                 dataGridView2.DataSource = dt;
                 conn.Close();
                 this.Show();
             }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            conn.Open();
+            int pageNumber = int.Parse(textBox3.Text);
+            if (pageNumber < 1)
+                pageNumber = 1;
+            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resources where companyid = " + companyId + ") a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            dataGridView2.DataSource = dt;
+            conn.Close();
+            this.Show();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            conn.Open();
+            int pageNumber = int.Parse(textBox4.Text);
+            if (pageNumber < 1)
+                pageNumber = 1;
+            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from services where companyid = " + companyId + ") a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            dataGridView1.DataSource = dt;
+            conn.Close();
+            this.Show();
+        }
+
+        private void button11_Click_1(object sender, EventArgs e)
+        {
+            conn.Open();
+            int pageNumber = int.Parse(textBox3.Text);
+            if (pageNumber < 1)
+                pageNumber = 1;
+            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resources where companyid = " + companyId + ") a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            dataGridView2.DataSource = dt;
+            conn.Close();
+            this.Show();
         }
     }
 }
