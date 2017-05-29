@@ -1,0 +1,21 @@
+drop index resourcesCompanyIndex;
+drop index servicesCompanyIndex;
+drop index requestsCompanyIndex;
+drop index ownersCompanyIndex;
+drop index ownersUserIdIndex;
+drop index companiesCompanyIndex;
+drop index user_UserIdIndex;
+drop index ownersJoinIndex;
+drop index ownersSecondJoinIndex;
+drop index orderByCostIndex;
+
+create index  resourcesCompanyIndex on resources(companyid);
+create index servicesCompanyIndex on services(companyid);
+create index requestsCompanyIndex on requests(companyid);
+create index ownersCompanyIndex on owners(companyid);
+create index ownersUserIdIndex on owners(userid);
+create index companiesCompanyIndex on companies(companyid);
+create index user_UserIdIndex on users_(userid);
+create index ownersJoinIndex on owners (userid, companyid);
+create index ownersSecondJoinIndex on owners (companyid, userid);
+create index orderByCostIndex on resources(cost);

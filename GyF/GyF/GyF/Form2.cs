@@ -29,16 +29,16 @@ namespace GyF
             conn.Open();
             //OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from services where companyid = " + companyId, conn);
             DataTable dt = new DataTable();
-            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resources where companyid = " + companyId + ") a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
+            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resourcesMaterializedView where companyid = " + companyId + ") a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
             adapter.Fill(dt);
-            dataGridView1.DataSource = dt;
+            dataGridView2.DataSource = dt;
             conn.Close();
 
             conn.Open();
             adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from services where companyid = " + companyId + ") a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
             dt = new DataTable();
             adapter.Fill(dt);
-            dataGridView2.DataSource = dt;
+            dataGridView1.DataSource = dt;
             conn.Close();
         }
 
@@ -93,6 +93,10 @@ namespace GyF
                 catch (Exception exp)
                 {
                     MessageBox.Show("Invalid filter command!\n" + exp.ToString(), "Exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (conn.State == ConnectionState.Open)
+                    {
+                        conn.Close();
+                    }
                 }
             }
         }
@@ -110,10 +114,14 @@ namespace GyF
                 try
                 {
                     conn.Open();
-                    int pageNumber = int.Parse(textBox3.Text);
+                    int pageNumber;
+                    if (textBox3.Text != null && textBox3.Text != "")
+                        pageNumber = int.Parse(textBox3.Text);
+                    else
+                        pageNumber = 1;
                     if (pageNumber < 1)
                         pageNumber = 1;
-                    OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resources where companyid = " + companyId + " and (" + filterQuery + ")) a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
+                    OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resourcesMaterializedView where companyid = " + companyId + " and " + filterQuery + ") a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     dataGridView2.DataSource = dt;
@@ -123,6 +131,10 @@ namespace GyF
                 catch(Exception exp)
                 {
                     MessageBox.Show("Invalid filter command!\n" + exp.ToString(), "Exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (conn.State == ConnectionState.Open)
+                    {
+                        conn.Close();
+                    }
                 }
             }
 
@@ -169,13 +181,13 @@ namespace GyF
                 int id = int.Parse(Convert.ToString(row.Cells["resourceId"].Value));
                 // delete from db
                 conn.Open();
-                OleDbCommand cmd = new OleDbCommand("delete from resources where resourceid=" + id, conn);
+                OleDbCommand cmd = new OleDbCommand("delete from resourcesMaterializedView where resourceid=" + id, conn);
                 cmd.ExecuteNonQuery();
                 conn.Close();
 
                 // refresh gridview table
                 conn.Open();
-                OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from resources where companyid = " + companyId, conn);
+                OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from resourcesMaterializedView where companyid = " + companyId, conn);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
                 dataGridView2.DataSource = dt;
@@ -231,7 +243,7 @@ namespace GyF
             rm.ShowDialog();
             // refresh gridview table
             conn.Open();
-            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from resources where companyid = " + companyId, conn);
+            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from resourcesMaterializedView where companyid = " + companyId, conn);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
             dataGridView2.DataSource = dt;
@@ -256,7 +268,7 @@ namespace GyF
                 // refresh gridview table
                 conn.Open();
                 int pageNumber = 1;
-                OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resources where companyid = " + companyId + ") a where rownum < ("+ pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")" , conn);
+                OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resourcesMaterializedView where companyid = " + companyId + ") a where rownum < ("+ pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")" , conn);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
                 dataGridView2.DataSource = dt;
@@ -271,7 +283,7 @@ namespace GyF
             int pageNumber = int.Parse(textBox3.Text);
             if (pageNumber < 1)
                 pageNumber = 1;
-            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resources where companyid = " + companyId + ") a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
+            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resourcesMaterializedView where companyid = " + companyId + ") a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
             dataGridView2.DataSource = dt;
@@ -299,12 +311,22 @@ namespace GyF
             int pageNumber = int.Parse(textBox3.Text);
             if (pageNumber < 1)
                 pageNumber = 1;
-            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resources where companyid = " + companyId + ") a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
+            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from ( select a.*, rownum r__ from (Select * from resourcesMaterializedView where companyid = " + companyId + ") a where rownum < (" + pageNumber * 10 + ")) where r__ >= (" + (pageNumber - 1) * 10 + ")", conn);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
             dataGridView2.DataSource = dt;
             conn.Close();
             this.Show();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

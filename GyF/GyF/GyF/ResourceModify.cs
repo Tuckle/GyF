@@ -76,7 +76,7 @@ namespace GyF
                     {
                         conn.Open();
                         
-                        OleDbCommand cmd = new OleDbCommand("update resources set name = '" + textBox1.Text + "', description = '" + textBox3.Text + "', cost =" + int.Parse(textBox2.Text) + "where resourceId=" + serviceId + " and companyId =" + companyId, conn);
+                        OleDbCommand cmd = new OleDbCommand("update resourcesMaterializedView set name = '" + textBox1.Text + "', description = '" + textBox3.Text + "', cost =" + int.Parse(textBox2.Text) + "where resourceId=" + serviceId + " and companyId =" + companyId, conn);
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Data has been saved!", "OK!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         conn.Close();
@@ -92,7 +92,7 @@ namespace GyF
                     {
                         conn.Open();
                         
-                        OleDbCommand cmd = new OleDbCommand("insert into resources (companyId, name, description, cost) values(" + companyId + ",'" + textBox1.Text + "', '" + textBox3.Text + "'," + int.Parse(textBox2.Text) + ")", conn);
+                        OleDbCommand cmd = new OleDbCommand("insert into resourcesMaterializedView (companyId, name, description, cost) values(" + companyId + ",'" + textBox1.Text + "', '" + textBox3.Text + "'," + int.Parse(textBox2.Text) + ")", conn);
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Data has been saved!", "OK!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         conn.Close();
